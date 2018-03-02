@@ -6,8 +6,7 @@ const app = new Koa();
 const jwt = require('jsonwebtoken')
 const jwtKoa = require('koa-jwt')
 
-const index = require('./routers/index');
-const login = require('./routers/login');
+const user = require('./routers/user');
 const secret = 'jwt demo'
 
 app.use(function(ctx, next){
@@ -23,7 +22,7 @@ app.use(function(ctx, next){
 app.use(bodyParser())
 
 app.use(jwtKoa({secret}).unless({
-    path: [/^\/login/] //数组中的路径不需要通过jwt验证
+    path: [/^\/login/,/^\/register/] //数组中的路径不需要通过jwt验证
 }))
 
 // logger
@@ -35,8 +34,7 @@ app.use(async (ctx, next) => {
 // routes
 
 // app.use(router.routes());
-// app.use(index.routes());
-app.use(login.routes());
+app.use(user.routes());
 
 // error-handling
 app.on('error', (err, ctx) => {
