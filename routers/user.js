@@ -30,5 +30,20 @@ router.post('/register', async (ctx, next) => {
     }
 })
 
+router.get('/users/list', async (ctx, next) => {
+    const result = await user.list(ctx);
+
+    ctx.body = {
+        ...result
+    }
+})
+
+router.post('/users/update', async (ctx, next) => {
+    const result = await user.updateInfo(ctx);
+
+    ctx.body = {
+        ...result
+    }
+})
 
 module.exports = router

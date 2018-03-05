@@ -21,9 +21,9 @@ app.use(function(ctx, next){
   });
 app.use(bodyParser())
 
-app.use(jwtKoa({secret}).unless({
-    path: [/^\/login/,/^\/register/] //数组中的路径不需要通过jwt验证
-}))
+// app.use(jwtKoa({secret}).unless({
+//     path: [/^\/login/,/^\/register/] //数组中的路径不需要通过jwt验证
+// }))
 
 // logger
 app.use(async (ctx, next) => {
