@@ -17,9 +17,10 @@ module.exports = {
         return res
     },
     register: function(ctx){
-        const password = md5(ctx.request.body.password)
-        const arr = [ctx.request.body.name, password];
-        const res = sql.query(`insert into users ( name, password) values (?,?)`, arr).then(function(result) {
+        const password = md5(ctx.request.body.password);
+        const params = ctx.request.body;
+        const arr = [params.nick_name, params.email, password, new Date()];
+        const res = sql.query(`insert into users ( nick_name, email, password, gmt_created) values (?,?,?,?)`, arr).then(function(result) {
             console.log('result',result)
             return {
                 message:"注册成功",
@@ -35,9 +36,9 @@ module.exports = {
         return res;
     },
     list: function(ctx){
-        console.log(ctx.request.body,'1')
+        console.log(ctx.request.body,'11')
         const id = ctx.request.body.id;
-        const res = sql.query('select * from users where id=?', 1).then(function(result) {
+        const res = sql.query('select * from users where id=?', 11).then(function(result) {
             console.log('result',result)
             return {
                 data: result,

@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const jwtKoa = require('koa-jwt')
 
 const user = require('./routers/user');
+const blog = require('./routers/blog');
 const secret = 'jwt demo'
 
 app.use(function(ctx, next){
@@ -35,6 +36,7 @@ app.use(async (ctx, next) => {
 
 // app.use(router.routes());
 app.use(user.routes());
+app.use(blog.routes());
 
 // error-handling
 app.on('error', (err, ctx) => {
