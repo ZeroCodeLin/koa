@@ -1,11 +1,11 @@
 var Client = require("mysql-pro");
 var client = new Client({
     mysql: {
-        host: "127.0.0.1",
+        host: "120.27.214.56",
         port: 3306,
-        database: "db",
+        database: "blog_test",
         user: "root",
-        password: "*********"
+        password: "Ly121207."
     }
 });
 

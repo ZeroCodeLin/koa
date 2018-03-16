@@ -1,4 +1,5 @@
 const Koa = require('koa');
+const views = require('koa-views');
 
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
@@ -9,6 +10,7 @@ const jwtKoa = require('koa-jwt')
 const user = require('./routers/user');
 const blog = require('./routers/blog');
 const secret = 'jwt demo'
+var staticServer = require("koa-static");
 
 app.use(function(ctx, next){
     return next().catch((err) => {
@@ -25,6 +27,12 @@ app.use(bodyParser())
 // app.use(jwtKoa({secret}).unless({
 //     path: [/^\/login/,/^\/register/] //数组中的路径不需要通过jwt验证
 // }))
+app.use(staticServer(__dirname + '/views'));
+app.use(views(__dirname + '/views', {
+  map: {
+    html: 'underscore'
+  }
+}))
 
 // logger
 app.use(async (ctx, next) => {
@@ -46,45 +54,3 @@ app.on('error', (err, ctx) => {
 app.listen(3000);
 
 console.log('app started at port 3000')
-
-
-// const Koa = require('koa')
-// const Router = require('koa-router')
-// const bodyParser = require('koa-bodyparser')
-// const jwt = require('jsonwebtoken')
-// const jwtKoa = require('koa-jwt')
-// const util = require('util')
-// const verify = util.promisify(jwt.verify) // 解密
-// const secret = 'jwt demo'
-// const app = new Koa()
-// const router = new Router()
-// app.use(bodyParser())
-// app.use(jwtKoa({secret}).unless({
-//         path: [/^\/api\/login/] //数组中的路径不需要通过jwt验证
-//     }))
-// router.post('/api/login', async (ctx, next) => {
-//         const user = ctx.request.body
-//         if(user && user.name) {
-//             let userToken = {
-//                 name: user.name
-//             }
-//             const token = jwt.sign(userToken, secret, {expiresIn: '1h'})  //token签名 有效期为1小时
-//             ctx.body = {
-//                 message: '获取token成功',
-//                 code: 1,
-//                 token
-//             }
-//         } else {
-//             ctx.body = {
-//                 message: '参数错误',
-//                 code: -1
-//             }
-//         }
-//     })
-    
-// app
-//     .use(router.routes())
-//     .use(router.allowedMethods())
-// app.listen(3000, () => {
-//     console.log('app listening 3000...')
-// })

@@ -18,12 +18,14 @@ module.exports = {
             return {
                 data: result,
                 total: total,
-                code: 1
+                status: 'success',
+                code: true
             };
         }, function(error){
             return {
                 message: '失败',
-                status: false
+                status: 'error',
+                code: false
             };
         });
         
@@ -36,13 +38,15 @@ module.exports = {
             console.log('result',result)
             return {
                 message: "成功",
-                code: 1
+                code: true,
+                status: 'success'
             };
         }, function(error){
             console.log(error,'error')
             return {
                 message: '失败',
-                status: false
+                status: 'error',
+                code: false
             };
         });
         return res
@@ -53,12 +57,14 @@ module.exports = {
             console.log('result',result)
             return {
                 data: result[0],
-                code: 1
+                code: true,
+                status: 'success'
             };
         }, function(error){
             return {
                 message: '失败',
-                status: false
+                status: 'error',
+                cod: false
             };
         });
         return res
