@@ -27,7 +27,9 @@ app.use(bodyParser())
 // app.use(jwtKoa({secret}).unless({
 //     path: [/^\/login/,/^\/register/] //数组中的路径不需要通过jwt验证
 // }))
-app.use(staticServer(__dirname + '/public'));
+app.use(staticServer(__dirname + '/public',{
+  maxage: 100000
+}));
 app.use(views(__dirname + '/views', {
   extension: 'html'
 }))
