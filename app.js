@@ -27,11 +27,9 @@ app.use(bodyParser())
 // app.use(jwtKoa({secret}).unless({
 //     path: [/^\/login/,/^\/register/] //数组中的路径不需要通过jwt验证
 // }))
-app.use(staticServer(__dirname + '/views'));
+app.use(staticServer(__dirname + '/public'));
 app.use(views(__dirname + '/views', {
-  map: {
-    html: 'underscore'
-  }
+  extension: 'html'
 }))
 
 // logger
