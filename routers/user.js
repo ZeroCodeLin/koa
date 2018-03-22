@@ -38,6 +38,14 @@ router.get('/users/list', async (ctx, next) => {
     }
 })
 
+router.get('/users/detail', async (ctx, next) => {
+    const result = await user.userDetail(ctx);
+
+    ctx.body = {
+        ...result
+    }
+})
+
 router.post('/users/update', async (ctx, next) => {
     const result = await user.updateInfo(ctx);
 

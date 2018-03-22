@@ -51,6 +51,6 @@ app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
 
-app.listen(80);
+app.listen(3000);
 
 console.log('app started at port 3000')

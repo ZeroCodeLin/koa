@@ -38,11 +38,29 @@ module.exports = {
     list: function(ctx){
         console.log(ctx.request.body,'11')
         const id = ctx.request.body.id;
-        const res = sql.query('select * from users where id=?', 11).then(function(result) {
+        const res = sql.query('select * from users where id=1', 11).then(function(result) {
             console.log('result',result)
             return {
                 data: result,
                 code: 1
+            };
+          }, function(error){
+            return {
+                message: '失败',
+                status: false
+            };
+          });
+        return res
+    },
+    userDetail: function(ctx){
+        console.log(ctx.request.body,'11')
+        const id = ctx.request.body.id;
+        const res = sql.query('select * from users where id=1', 11).then(function(result) {
+            console.log('result',result)
+            return {
+                data: result[0],
+                code: true,
+                status: 'success'
             };
           }, function(error){
             return {
