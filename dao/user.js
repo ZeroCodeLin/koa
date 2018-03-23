@@ -3,15 +3,18 @@ var md5 = require('md5');
 
 module.exports = {
     login: function(ctx){
-        const password = md5(ctx.request.body.password)
-        const arr = [ctx.request.body.name, password];
-        const res = sql.query('select * from users where name=? and password=?;', arr).then(function(result) {
+        const password = md5(ctx.request.body.password);
+        console.log(password)
+        const arr = [ctx.request.body.email, password];
+        const res = sql.query('select * from users where email=? and password=?;', arr).then(function(result) {
             return {
-                isTrue: true
+                code: true,
+                status: 'success'
             };
           }, function(error){
             return {
-                isTrue: false
+                status: 'error',
+                code: false
             };
           });
         return res
@@ -46,42 +49,42 @@ module.exports = {
             };
           }, function(error){
             return {
-                message: '失败',
+                msg: '失败',
                 status: false
             };
           });
         return res
     },
     userDetail: function(ctx){
-        console.log(ctx.request.body,'11')
         const id = ctx.request.body.id;
         const res = sql.query('select * from users where id=1', 11).then(function(result) {
-            console.log('result',result)
+            
             return {
                 data: result[0],
                 code: true,
                 status: 'success'
             };
-          }, function(error){
+        }, function(error){
             return {
-                message: '失败',
+                msg: '失败',
                 status: false
             };
-          });
+        });
         return res
     },
     updateInfo: function(ctx){
         const params = ctx.request.body;
-        const arr = [params.nickName, params.email, params.git, 1];
+        const arr = [params.nick_name, params.email, params.git, 1];
         const res = sql.query('update users set nick_name=?, email=?, github=? where id=?', arr).then(function(result) {
             console.log('result',result)
             return {
-                message:"注册成功",
-                status: true
+                data:{...params},
+                status: 'success',
+                code: true
             };
           }, function(error){
             return {
-                message: '失败',
+                msg: '失败',
                 status: false
             };
           });

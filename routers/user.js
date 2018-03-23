@@ -10,7 +10,7 @@ router.post('/login', async (ctx, next) => {
     const name = ctx.request.body.name || '';
     
     const result = await user.login(ctx);
-    if(result.isTrue){
+    if(result.code){
         let userToken = {
             name: name
         }

@@ -4,7 +4,7 @@ const sql = require('./mysql-config');
 module.exports = {
     lists: async function(ctx){
         const params = ctx.request.body;
-        console.log('1',params)
+        
         let page = (params.page - 1)|| 0
         const start = page * params.pageSize;
         const end = parseInt(params.pageSize);
@@ -23,7 +23,7 @@ module.exports = {
             };
         }, function(error){
             return {
-                message: '失败',
+                msg: '失败',
                 status: 'error',
                 code: false
             };
@@ -37,14 +37,14 @@ module.exports = {
         const res = sql.query('insert into essay (title ,description ,content ,gmt_created ) values (?,?,?,?)',arr).then(function(result) {
             console.log('result',result)
             return {
-                message: "成功",
+                msg: "成功",
                 code: true,
                 status: 'success'
             };
         }, function(error){
-            console.log(error,'error')
+            
             return {
-                message: '失败',
+                msg: '失败',
                 status: 'error',
                 code: false
             };
@@ -54,7 +54,7 @@ module.exports = {
     detail: function(ctx){
         const id = ctx.params.id;
         const res = sql.query('select * from essay where id=?', id).then(function(result) {
-            console.log('result',result)
+            
             return {
                 data: result[0],
                 code: true,
@@ -62,7 +62,7 @@ module.exports = {
             };
         }, function(error){
             return {
-                message: '失败',
+                msg: '失败',
                 status: 'error',
                 cod: false
             };

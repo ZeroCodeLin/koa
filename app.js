@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 const jwtKoa = require('koa-jwt')
 
 const user = require('./routers/user');
-const blog = require('./routers/blog');
+const essay = require('./routers/essay');
 const secret = 'jwt demo'
 var staticServer = require("koa-static");
 
@@ -44,7 +44,7 @@ app.use(async (ctx, next) => {
 
 // app.use(router.routes());
 app.use(user.routes());
-app.use(blog.routes());
+app.use(essay.routes());
 
 // error-handling
 app.on('error', (err, ctx) => {
