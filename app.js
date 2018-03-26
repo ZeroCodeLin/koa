@@ -9,7 +9,7 @@ const jwtKoa = require('koa-jwt')
 
 const user = require('./routers/user');
 const essay = require('./routers/essay');
-const secret = 'jwt demo'
+const secret = '用户认证'
 var staticServer = require("koa-static");
 
 app.use(function(ctx, next){
@@ -24,9 +24,9 @@ app.use(function(ctx, next){
   });
 app.use(bodyParser())
 
-// app.use(jwtKoa({secret}).unless({
-//     path: [/^\/login/,/^\/register/] //数组中的路径不需要通过jwt验证
-// }))
+app.use(jwtKoa({secret}).unless({
+    path: [/^\//,/^\/login/,/^\/register/,/^\/essay/] //数组中的路径不需要通过jwt验证
+}))
 app.use(staticServer(__dirname + '/public',{
   maxage: 100000
 }));
@@ -51,6 +51,6 @@ app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
 
-app.listen(3000);
+app.listen(80);
 
 console.log('app started at port 3000')

@@ -7,9 +7,11 @@ module.exports = {
         console.log(password)
         const arr = [ctx.request.body.email, password];
         const res = sql.query('select * from users where email=? and password=?;', arr).then(function(result) {
+            
             return {
                 code: true,
-                status: 'success'
+                status: 'success',
+                user: result[0]
             };
           }, function(error){
             return {

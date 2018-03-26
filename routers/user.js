@@ -2,7 +2,7 @@ const router = require('koa-router')();
 const sql = require('../dao/mysql-config')
 const jwt = require('jsonwebtoken')
 const jwtKoa = require('koa-jwt')
-const secret = 'jwt demo'
+const secret = '用户认证'
 
 const user = require('../dao/user')
 
@@ -10,15 +10,17 @@ router.post('/login', async (ctx, next) => {
     const name = ctx.request.body.name || '';
     
     const result = await user.login(ctx);
+    let token;
     if(result.code){
         let userToken = {
-            name: name
+            id: result.user.id
         }
-        const token = jwt.sign(userToken, secret, {expiresIn: '1h'})  //token签名 有效期为1小时
-        ctx.cookies.set("Authorization", token)
+        token = jwt.sign(userToken, secret, {expiresIn: '1h'})  //token签名 有效期为1小时
+        // ctx.cookies.set("Authorization", token)
     }
     ctx.body = {
-        ...result
+        ...result,
+        token: token
     }
 })
 
